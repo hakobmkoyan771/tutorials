@@ -5,7 +5,6 @@ properties([
     ])
 ])
 podTemplate(containers: [
-    containerTemplate(name: "maven", image: "maven:${params.maven}", command: "sleep", args: "99d"),
     containerTemplate(name: "golang", image: "golang:${params.golang}", command: "sleep", args: "99d")
   ]) {
 
@@ -22,6 +21,15 @@ podTemplate(containers: [
                 }
             }
         }
+
+    }
+}
+
+podTemplate(containers: [
+    containerTemplate(name: "maven", image: "maven:${params.maven}", command: "sleep", args: "99d"),
+  ]) {
+
+    node(POD_LABEL) {
         stage("Get a Maven project") {
             git "https://github.com/jenkinsci/kubernetes-plugin.git"
             container("maven") {

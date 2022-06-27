@@ -1,7 +1,17 @@
 properties([
     parameters([
-        choice(choices: ["1.18.3", "1.16.5"], description: "Golang version.", name: "golang"),
-        choice(choices: ["3.8.1-jdk-8", "3.8.6-openjdk-8-slim"], description: "Maven version.", name: "maven")
+        choice(
+            choices: [
+                "1.18.3",
+                "1.16.5"],
+            description: "Golang version.", name: "golang"
+        ),
+        choice(
+            choices: [
+                "3.8.1-jdk-8",
+                "3.8.6-openjdk-8-slim"],
+            description: "Maven version.", name: "maven"
+        )
     ])
 ])
 podTemplate(containers: [
@@ -38,7 +48,6 @@ podTemplate(containers: [
                 }
             }
         }
-
 
     }
 }

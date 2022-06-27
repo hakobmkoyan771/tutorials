@@ -14,10 +14,10 @@ properties([
         )
     ])
 ])
+
 podTemplate(containers: [
     containerTemplate(name: "golang", image: "golang:${params.golang}", command: "sleep", args: "99d")
   ]) {
-
     node(POD_LABEL) {
         stage("Get a Golang project") {
             git url: "https://github.com/hashicorp/terraform.git", branch: "main"
@@ -38,7 +38,6 @@ podTemplate(containers: [
 podTemplate(containers: [
     containerTemplate(name: "maven", image: "maven:${params.maven}", command: "sleep", args: "99d"),
   ]) {
-
     node(POD_LABEL) {
         stage("Get a Maven project") {
             git "https://github.com/jenkinsci/kubernetes-plugin.git"

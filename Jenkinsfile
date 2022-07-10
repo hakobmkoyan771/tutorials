@@ -30,9 +30,9 @@ pipeline {
                     '''
                 }
             }
-            steps {       
+            steps { 
+                git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                 container('kaniko') {
-                    git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                     sh 'ls'
                 }
             }

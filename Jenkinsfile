@@ -9,7 +9,7 @@ pipeline {
             spec:
                 containers:
                     - name: ubuntu
-                      image: ubuntu:20.04
+                      image: ubuntu
                       command:
                       - sleep
                       args:
@@ -36,7 +36,7 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                ls 'whoami, hostname, ls /'
+                ls 'ls /'
                 container('kaniko') {
                     sh 'ls /'
                     git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"

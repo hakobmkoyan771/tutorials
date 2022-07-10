@@ -8,6 +8,12 @@ pipeline {
                 name: kaniko
             spec:
                 containers:
+                    - name: ubuntu
+                      image: ubuntu:20.04
+                      command:
+                      - sleep
+                      args:
+                      - 9999999
                     - name: kaniko
                       image: gcr.io/kaniko-project/executor:debug
                       command:
@@ -30,9 +36,9 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                sh 'ls /home'
+                ls 'whoami, hostname, ls /'
                 container('kaniko') {
-                    sh 'ls /home'
+                    sh 'ls /'
                     git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                     sh "/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${env.BUILD_NUMBER}"
                 }

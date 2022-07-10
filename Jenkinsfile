@@ -36,9 +36,9 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                sh 'ls, ls /, ls /home'
+                sh 'ls; ls /; ls /home'
                 container('kaniko') {
-                    sh 'ls, ls /, ls /home'
+                    sh 'ls; ls /; ls /home'
                     git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                     sh "/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${env.BUILD_NUMBER}"
                 }

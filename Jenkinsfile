@@ -38,7 +38,6 @@ pipeline {
         }
         stage('Build image of hashicorp/terraform repo') {
             steps {
-                sh 'ls'
                 container('kaniko') {
                     git url: "https://github.com/hashicorp/terraform.git", branch: "main"
                     sh "/kaniko/executor --context `pwd`"

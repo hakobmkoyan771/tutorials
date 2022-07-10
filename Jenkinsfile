@@ -31,7 +31,6 @@ pipeline {
                 }
             }
             steps { 
-                git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                 container('kaniko') {
                     sh 'ls'
                 }

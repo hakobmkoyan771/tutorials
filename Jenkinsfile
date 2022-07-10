@@ -30,10 +30,10 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                sh 'hostname --all-ip-addresses, whoami, '
+                sh 'hostname -I, whoami, '
                 sh 'pwd'
                 container('kaniko') {
-                    sh 'hostname --all-ip-addresses'
+                    sh 'hostname -I'
                     git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
                     sh "/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${env.BUILD_NUMBER}"
                 }

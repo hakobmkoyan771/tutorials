@@ -30,7 +30,7 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                sh 'hostname -I, '
+                sh 'hostname -I'
                 sh 'pwd'
                 container('kaniko') {
                     sh 'hostname -I'

@@ -30,18 +30,16 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
-                sh 'ls'
                 container('kaniko') {
-                    sh 'ls'
-                    sh "/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${env.BUILD_NUMBER}"
+                    git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"
+                    //sh "/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${env.BUILD_NUMBER}"
                 }
             }
         }
         stage('Build image of hashicorp/terraform repo') {
             steps {
+                sh 'ls'
                 container('kaniko') {
-                    sh 'false' 
                     git url: "https://github.com/hashicorp/terraform.git", branch: "main"
                     sh "/kaniko/executor --context `pwd`"
                 }

@@ -36,7 +36,7 @@ pipeline {
     stages {
         stage('Build image of hakobmkoyan771/jenkinskubernetes repo') {
             steps {
-                sh 'ls /'
+                sh 'whoami, hostname'
                 container('kaniko') {
                     sh 'ls /'
                     git url: "https://github.com/hakobmkoyan771/jenkinskubernetes.git", branch: "main"

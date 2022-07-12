@@ -13,6 +13,7 @@ pipeline {
     stages {
         stage('Build image of repo & push to registry') {
             steps {
+                sh "echo ${repo_link}"
                 container('kaniko') {
                     dir("${reponame}") {
                         git url: """${repo_link}, branch: 'main'"""

@@ -11,13 +11,34 @@ pipeline {
                                            [key: 'default_branch', value: '$.repository.default_branch']])
     }
     stages {
-        stage('Build image of repo & push to registry') {
+        stage('Build image of ${reponame} repo & push to registry') {
             steps {
                 container('kaniko') {
                     dir("${reponame}") {
                         git url: """${repo_link}", branch: "${default_branch}"""
                         sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${repo_link}"""
                     }
+                }
+            }
+        }
+        stage('Run pod of created image in previous stage') {
+            agent {
+                kubernetes {
+                    yaml """
+                        apiVersion: v1
+                        kind: Pod
+                        metadata:
+                            name: ${reponame}
+                        spec:
+                            containers:
+                                - name: ${reponame}
+                                  image: hakobmkoyan771/app:_${repo_link}
+                    """
+                }
+            }
+            steps {
+                container('${reponame}') {
+                    sh "sleep 99d"
                 }
             }
         }

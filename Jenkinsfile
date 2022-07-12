@@ -34,7 +34,7 @@ pipeline {
                         spec:
                             containers:
                                 - name: ${repo}
-                                  image: hakobmkoyan771/app:_${repo_link}
+                                  image: hakobmkoyan771/${reponame}:_${env.BUILD_NUMBER}
                     """
                 }
             }

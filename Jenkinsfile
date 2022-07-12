@@ -16,7 +16,7 @@ pipeline {
                 sh "echo ${repo_link}"
                 container('kaniko') {
                     dir("${reponame}") {
-                        git url: $repo_link
+                        git url: ${repo_link}, branch: ${default_branch}
                         sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${repo_link}"""
                     }
                 }

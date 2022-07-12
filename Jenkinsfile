@@ -9,8 +9,7 @@ pipeline {
                         genericVariables: [[key: 'repo', value: '$.repository.full_name'],
                                            [key: 'repo_link', value: '$.repository.clone_url'],
                                            [key: 'default_branch', value: '$.repository.default_branch'],
-                                           [key: 'reponame', value: '$.repository.name']
-                                           ])
+                                           [key: 'reponame', value: '$.repository.name']])
     }
     stages {
         stage('Build image of repo & push to registry') {
@@ -40,7 +39,7 @@ pipeline {
                 }
             }
             steps {
-                container("${reponame}") {
+                container("${repo}") {
                     sh "sleep 99d"
                 }
             }

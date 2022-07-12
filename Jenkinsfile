@@ -6,19 +6,20 @@ pipeline {
     }
     triggers {
         GenericTrigger(causeString: 'Generic Trigger',
-                        genericVariables: [[key: 'reponame', value: '$.repository.full_name'],
+                        genericVariables: [[key: 'repo', value: '$.repository.full_name'],
                                            [key: 'repo_link', value: '$.repository.clone_url'],
                                            [key: 'default_branch', value: '$.repository.default_branch'],
-                                           [key: 'pusher', value: '$.pusher.name']])
+                                           [key: 'reponame', value: '$.repository.name']
+                                           ])
     }
     stages {
         stage('Build image of repo & push to registry') {
             steps {
                 sh "echo ${repo_link}"
                 container('kaniko') {
-                    dir("${reponame}") {
+                    dir("${repo}") {
                         git url: "${repo_link}", branch: "${default_branch}"
-                        sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${pusher}"""
+                        sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/${reponame}:_${env.BULD_NUMBER}"""
                     }
                 }
             }
@@ -30,10 +31,10 @@ pipeline {
                         apiVersion: v1
                         kind: Pod
                         metadata:
-                            name: ${reponame}
+                            name: ${repo}
                         spec:
                             containers:
-                                - name: ${reponame}
+                                - name: ${repo}
                                   image: hakobmkoyan771/app:_${repo_link}
                     """
                 }

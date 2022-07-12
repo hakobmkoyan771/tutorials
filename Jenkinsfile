@@ -11,7 +11,7 @@ pipeline {
                                            [key: 'default_branch', value: '$.repository.default_branch']])
     }
     stages {
-        stage("Build image of ${reponame} repo") {
+        stage("""Build image of ${reponame} repo""") {
             steps {
                 container('kaniko') {
                     dir("${reponame}") {

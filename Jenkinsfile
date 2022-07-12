@@ -30,16 +30,16 @@ pipeline {
                         apiVersion: v1
                         kind: Pod
                         metadata:
-                            name: ${repo}
+                            name: ${reponame}
                         spec:
                             containers:
-                                - name: ${repo}
+                                - name: ${reponame}
                                   image: hakobmkoyan771/${reponame}:_${env.BUILD_NUMBER}
                     """
                 }
             }
             steps {
-                container("${repo}") {
+                container("${reponame}") {
                     sh "sleep 99d"
                 }
             }

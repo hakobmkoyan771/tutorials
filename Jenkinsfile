@@ -7,7 +7,7 @@ pipeline {
     triggers {
         GenericTrigger(causeString: 'Generic Trigger',
                         genericVariables: [[key: 'reponame', value: '$.repository.full_name'],
-                                           [key: 'repo_link', value: '$.repository.git_url'],
+                                           [key: 'repo_link', value: '$.repository.clone_url'],
                                            [key: 'default_branch', value: '$.repository.default_branch']])
     }
     stages {
@@ -16,7 +16,7 @@ pipeline {
                 sh "echo ${repo_link}"
                 container('kaniko') {
                     dir("${reponame}") {
-                        git url: """${repo_link}, branch: 'main'"""
+                        git url: """${repo_link}, branch: ${default_branch}"""
                         sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/app:_${repo_link}"""
                     }
                 }

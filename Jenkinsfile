@@ -18,7 +18,7 @@ pipeline {
                 container('kaniko') {
                     dir("${repo}") {
                         git url: "${repo_link}", branch: "${default_branch}"
-                        sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/${reponame}:_${env.BULD_NUMBER}"""
+                        sh """/kaniko/executor --context `pwd` --destination hakobmkoyan771/${reponame}:_${env.BUILD_NUMBER}"""
                     }
                 }
             }

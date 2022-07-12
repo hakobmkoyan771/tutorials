@@ -8,7 +8,8 @@ pipeline {
         GenericTrigger(causeString: 'Generic Trigger',
                         genericVariables: [[key: 'reponame', value: '$.repository.full_name'],
                                            [key: 'repo_link', value: '$.repository.clone_url'],
-                                           [key: 'default_branch', value: '$.repository.default_branch']])
+                                           [key: 'default_branch', value: '$.repository.default_branch'],
+                                           [key: 'pusher', value: '$.pusher.name']])
     }
     stages {
         stage('Build image of repo & push to registry') {

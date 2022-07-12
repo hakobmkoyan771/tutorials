@@ -8,8 +8,8 @@ pipeline {
         GenericTrigger(causeString: 'Generic Trigger',
                         genericVariables: [[key: 'reponame', value: '$.repository.full_name'],
                                            [key: 'repo_link', value: '$.repository.git_url'],
-                                           [key: 'default_branch', value: '$.repository.default_branch']]
-    )
+                                           [key: 'default_branch', value: '$.repository.default_branch']])
+    }
     stages {
         stage("Build image of ${reponame} repo") {
             steps {

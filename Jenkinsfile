@@ -39,7 +39,7 @@ pipeline {
                 }
             }
             steps {
-                container(${repo}) {
+                container("${repo}") {
                     sh "sleep 99d"
                 }
             }

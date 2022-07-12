@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smee
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: smee
+  template:
+    metadata:
+      labels:
+        app: smee
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: smee
+          image: hakobmkoyan771/smee
+          command:
+            - "python3"
+          args:
+            - "/home/webhookfrwd.py"
+          imagePullPolicy: Always
+          env:
+            - name: SMEE_URL
+              value: "https://smee.io/fSzEzx2DLdvBmdFu"
+            - name: JENKINS_USERNAME
+              value: user
+            - name: JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins-1657318312
+                  key: jenkins-password
+            - name: SVC_IP_ADDRESS
+              value: "10.96.160.1"
+            - name: WEBHOOK_ENDPOINT
+              value: "/generic-webhook-trigger/invoke"
+            - name: PROTOCOL
+              value: "http"
